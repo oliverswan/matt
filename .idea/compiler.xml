@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="import_main" target="1.8" />
+      <module name="import_test" target="1.8" />
+      <module name="popup_main" target="1.8" />
+      <module name="popup_test" target="1.8" />
+      <module name="rules_main" target="1.8" />
+      <module name="rules_test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

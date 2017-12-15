@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/import.iml" filepath="$PROJECT_DIR$/.idea/modules/import.iml" group="import" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/import/import_main.iml" filepath="$PROJECT_DIR$/.idea/modules/import/import_main.iml" group="import" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/import/import_test.iml" filepath="$PROJECT_DIR$/.idea/modules/import/import_test.iml" group="import" />
+      <module fileurl="file://$PROJECT_DIR$/matt.iml" filepath="$PROJECT_DIR$/matt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/popup.iml" filepath="$PROJECT_DIR$/.idea/modules/popup.iml" group="popup" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/popup/popup_main.iml" filepath="$PROJECT_DIR$/.idea/modules/popup/popup_main.iml" group="popup" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/popup/popup_test.iml" filepath="$PROJECT_DIR$/.idea/modules/popup/popup_test.iml" group="popup" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rules.iml" filepath="$PROJECT_DIR$/.idea/modules/rules.iml" group="rules" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rules/rules_main.iml" filepath="$PROJECT_DIR$/.idea/modules/rules/rules_main.iml" group="rules" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rules/rules_test.iml" filepath="$PROJECT_DIR$/.idea/modules/rules/rules_test.iml" group="rules" />
+    </modules>
+  </component>
+</project>

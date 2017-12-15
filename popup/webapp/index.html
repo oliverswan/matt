@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css"
+	href="fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/style.css">
+<!--[if IE]>
+  		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+		<![endif]-->
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<header class="codrops-header" id="header">
+			<!-- <h1>Ticket Reminder <span>Simple ideas for enhancing text input interactions</span></h1> -->
+		</header>
+		<section class="content" id="content">
+			<!-- <h2>Kyo</h2> -->
+			<span class="input input--kyo" id="inputParent"> <input
+				class="input__field input__field--kyo" type="text" id="input-19" />
+				<label class="input__label input__label--kyo" for="input-19"
+				id="inputLabel"> <span
+					class="input__label-content input__label-content--kyo">What's
+						your id?</span>
+			</label>
+			</span>
+		</section>
+	</div>
+	<!-- /container -->
+	<script>
+
+		function StringBuilder(){
+			this.__string__ = new Array();
+		}
+		StringBuilder.prototype.append = function(str){
+			this.__string__.push(str);
+		}
+		StringBuilder.prototype.toString = function(){
+			return this.__string__.join("");
+		}
+	
+		function getcontent(data) {
+		
+			var x = '<div id="'+data.ticketId+'" class="notify successbox"> <h1>'+data.ticketId+'</h1> <span class="toggle" id="t'+data.ticketId+'">open</span><div id="t'+data.ticketId+'s" class="details" style="display:none">'
+					+ getDetail(data) + '</div> </div>';
+					
+			return x;
+		}
+		
+		function getDetail(data) {
+			var buffer = new StringBuilder();
+			
+			buffer.append('<div><span class="namefont">');
+			buffer.append(data.firstName);
+			buffer.append(' ');
+			buffer.append(data.lastName);
+			buffer.append('</span></div>');
+			buffer.append('<div class="titlefont"> is'+data.title+'</br>');
+			buffer.append('Preferred contact method is ');
+			buffer.append(data.preferContact);
+			buffer.append('</div>');
+			buffer.append('</br>');
+			
+			buffer.append('</br>');
+			buffer.append('<div align="left">Email: '+data.email+'</br>Direct: '+data.drectNum+'</br>Mobile: '+data.mobile+'</br>Company: '+data.companyNum+'</br>Site: '+data.companyAddress+'</br></div>');
+			buffer.append('<div align="left">Recent CSAT Results</br>');
+		
+			 $.each(data.csats, function (index, csat) {
+                buffer.append(csat+'</br>');
+            });
+            
+			buffer.append('</div><div align="left">'+data.firstName+' tickets :</br>');
+			
+			 $.each(data.tickets, function (index, ticket) {
+                buffer.append(ticket+'</br>');
+            });
+			
+			buffer.append('</div>');
+			return buffer.toString();
+		}
+		
+		/*
+		sb.append("Preferred contact method is ").append(this.getPreferContact());
+		sb.append("<br/>");
+		sb.append("<br/>");
+		*/
+		function go(channel) {
+			var params = escape("channel") + "=" + channel;
+			var url = "login?"+ params;
+			var request = new XMLHttpRequest();
+			request.open("GET", url, true);
+			request.setRequestHeader("Content-Type",
+					"application/x-javascript;charset=utf-8");
+			request.onreadystatechange = function() {
+			
+				if (request.readyState == 4) {
+					if (request.status == 200) {
+						if (request.responseText) {
+							var arr = eval('(' + request.responseText + ')');
+							
+							for(j = 0,len=arr.length; j < len; j++) {
+   								if($("#"+arr[j].ticketId).length <= 0 ) {
+   									displayPanel = $(getcontent(arr[j]));
+   									
+   									
+   									f = function(){
+   										$("#"+this.id+"s").toggle();
+   										if(this.innerHTML == 'open'){
+   											this.innerHTML = 'close';
+   										}
+   										else{
+   											this.innerHTML = 'open';
+   										}
+   									}
+   									
+   									displayPanel.prependTo('#content');
+   									$("#t"+arr[j].ticketId).click(f);
+   									// myWindow=window.open('/detail?id='+this.id,'','width=500,height=1000');
+   								}
+							}
+						}
+					}
+					go(channel);
+				}
+			};
+			request.send(null);
+		 }// end of function go
+		var x = document.getElementById('input-19').focus();
+		document.onkeyup = function(e) {
+			var code = e.charCode || e.keyCode;  
+			if (code == 13) {
+				var name = document.getElementById('input-19').value;
+				document.getElementById('input-19').style.display = "none";
+				document.getElementById('inputLabel').style.display = "none";
+				document.getElementById('header').innerHTML = '<h1>Hello! '
+						+ name + ' </h1>';//<span>blah blah</span>
+				go(name);
+			}
+		}
+	</script>
+	<script src="js/classie.js"></script>
+	<script>
+		(
+				function() {
+					// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+					if (!String.prototype.trim) {
+						(function() {
+							// Make sure we trim BOM and NBSP
+							var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+							String.prototype.trim = function() {
+								return this.replace(rtrim, '');
+							};
+						})();
+					}
+
+					[].slice.call(
+							document.querySelectorAll('input.input__field'))
+							.forEach(
+									function(inputEl) {
+										// in case the input is already filled..
+										if (inputEl.value.trim() !== '') {
+											classie.add(inputEl.parentNode,
+													'input--filled');
+										}
+
+										// events:
+										inputEl.addEventListener('focus',
+												onInputFocus);
+										inputEl.addEventListener('blur',
+												onInputBlur);
+									});
+
+					function onInputFocus(ev) {
+						classie.add(ev.target.parentNode, 'input--filled');
+					}
+
+					function onInputBlur(ev) {
+						if (ev.target.value.trim() === '') {
+							classie.remove(ev.target.parentNode,
+									'input--filled');
+						}
+					}
+				})();
+	</script>
+</body>
+</html>

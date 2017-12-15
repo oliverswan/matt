@@ -1,0 +1,90 @@
+group 'net.oliver'
+version '0.1'
+
+def projectName = "popup"
+def versionNumber = "0.1"
+
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+sourceSets {
+
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+        resources {
+            srcDir 'src/test/resources'
+        }
+    }
+}
+
+dependencies {
+    compile files('libs/connectwise-sdk-17.2-beta.jar')
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.38'
+    compile group: 'jdom', name: 'jdom', version: '1.1'
+    compile group: 'com.rometools', name: 'rome', version: '1.9.0'
+//    compile group: 'org.cometd.java', name: 'bayeux-api', version: '3.1.2'
+//    compile group: 'org.cometd.java', name: 'cometd-java-common', version: '3.1.2'
+    compile group: 'com.mchange', name: 'mchange-commons-java', version: '0.2.11'
+    compile group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    compile group: 'ch.qos.logback', name: 'logback-access', version: '1.2.3'
+    compile group: 'org.eclipse.jetty', name: 'jetty-continuation', version: '9.2.22.v20170606'
+    compile group: 'org.eclipse.jetty', name: 'jetty-http', version: '9.2.22.v20170606'
+    compile group: 'org.eclipse.jetty', name: 'jetty-io', version: '9.2.22.v20170606'
+    compile group: 'org.eclipse.jetty', name: 'jetty-jmx', version: '9.2.22.v20170606'
+    compile group: 'org.eclipse.jetty', name: 'jetty-security', version: '9.2.22.v20170606'
+    compile group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.2.22.v20170606'
+    compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '9.2.22.v20170606'
+    compile group: 'org.eclipse.jetty', name: 'jetty-servlets', version: '9.2.22.v20170606'
+    compile group: 'org.eclipse.jetty', name: 'jetty-util', version: '9.2.22.v20170606'
+    compile group: 'org.eclipse.jetty', name: 'jetty-util-ajax', version: '9.2.22.v20170606'
+    compile group: 'org.eclipse.jetty', name: 'jetty-webapp', version: '9.2.22.v20170606'
+    compile group: 'org.eclipse.jetty', name: 'jetty-xml', version: '9.2.22.v20170606'
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+}
+task copyJars(type:Copy,dependsOn:jar) {
+    from configurations.runtime
+    into 'build/libs' // 目标位置
+}
+
+task zip(type: Zip,dependsOn:copyJars) {
+//    File destDir = file('dest')
+    archiveName projectName+'_'+versionNumber+'.zip'
+
+    from ('build/libs'){
+        into 'lib'
+    }
+//    from ('libs'){
+//        into 'lib'
+//    }
+    from ('config') {
+        into 'config'
+    }
+    from ('webapp') {
+        into 'webapp'
+    }
+    from ('run.bat')
+
+//    destinationDir destDir
+}

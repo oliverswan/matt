@@ -1,0 +1,79 @@
+group 'net.oliver'
+version '0.1'
+
+def projectName = "import"
+def versionNumber = "0.1"
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+sourceSets {
+
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+        resources {
+            srcDir 'src/test/resources'
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile files('libs/connectwise-sdk-17.2-beta.jar')
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'joda-time', name:'joda-time', version: '2.9.9'
+    compile group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
+    compile group: 'com.univocity', name: 'univocity-parsers', version: '2.5.9'
+    compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '6.2.1.jre8'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'com.mchange', name: 'mchange-commons-java', version: '0.2.11'
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    compile group: 'ch.qos.logback', name: 'logback-access', version: '1.2.3'
+
+}
+
+/*jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}*/
+
+task copyJars(type:Copy,dependsOn:jar) {
+    from configurations.runtime
+    into 'build/libs' // 目标位置
+}
+
+task zip(type: Zip,dependsOn:copyJars) {
+//    File destDir = file('dest')
+    archiveName projectName+'_'+versionNumber+'.zip'
+
+    from ('build/libs'){
+        into 'lib'
+    }
+//    from ('libs'){
+//        into 'lib'
+//    }
+    from ('config') {
+        into 'config'
+    }
+    from ('run.bat')
+
+//    destinationDir destDir
+}
