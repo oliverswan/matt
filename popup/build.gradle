@@ -44,6 +44,7 @@ dependencies {
 //    compile group: 'org.cometd.java', name: 'cometd-java-common', version: '3.1.2'
     compile group: 'com.mchange', name: 'mchange-commons-java', version: '0.2.11'
     compile group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
+    compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '6.2.1.jre8'
     compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile group: 'ch.qos.logback', name: 'logback-access', version: '1.2.3'

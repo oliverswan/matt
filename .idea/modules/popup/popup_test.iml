@@ -23,6 +23,7 @@
     <orderEntry type="library" name="Gradle: com.rometools:rome:1.9.0" level="project" />
     <orderEntry type="library" name="Gradle: com.mchange:c3p0:0.9.5.2" level="project" />
     <orderEntry type="library" name="Gradle: com.mchange:mchange-commons-java:0.2.11" level="project" />
+    <orderEntry type="library" name="Gradle: com.microsoft.sqlserver:mssql-jdbc:6.2.1.jre8" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-access:1.2.3" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.2.3" level="project" />
